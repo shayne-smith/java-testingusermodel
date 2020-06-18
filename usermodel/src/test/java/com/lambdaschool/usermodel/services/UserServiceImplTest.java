@@ -57,6 +57,7 @@ public class UserServiceImplTest
     @Test
     public void cfindByNameContaining()
     {
+        assertEquals(1, userService.findByNameContaining("cinn").size());
     }
 
     @Test
@@ -68,7 +69,7 @@ public class UserServiceImplTest
     @Test
     public void edelete()
     {
-        userService.delete(7);
+        userService.delete(11);
         assertEquals(29, userService.findAll().size());
     }
 
@@ -82,6 +83,13 @@ public class UserServiceImplTest
     @Test
     public void ffindByName()
     {
+        assertEquals("test cinnamon", userService.findByName("test cinnamon").getUsername());
+    }
+
+    @Test(expected = EntityNotFoundException.class)
+    public void fafindByNameNotFound()
+    {
+        assertEquals("cinnamon", userService.findByName("cinnamon").getUsername());
     }
 
     @Test
@@ -98,13 +106,44 @@ public class UserServiceImplTest
     }
 
     @Test
-    public void hupdate()
+    public void gasaveasput()
     {
         List<UserRoles> thisRole = new ArrayList<>();
+        thisRole.add(new UserRoles());
+        thisRole.get(0).setRole(new Role());
+        thisRole.get(0).getRole().setRoleid(2);
+        thisRole.get(0).setUser(new User());
+        User newUser = new User("Number 12 Test User", "pass", "test@lambdaschool.local", thisRole);
+
+        newUser.setUserid(4);
+        newUser.getUseremails()
+            .add(new Useremail(newUser, "newTest@lambdaschool.local"));
+        User addUser = userService.save(newUser);
+
+        assertNotNull(addUser);
+        User foundUser = userService.findUserById(addUser.getUserid());
+        assertEquals(addUser.getUsername(), foundUser.getUsername());
+    }
+
+    @Test
+    public void hupdate()
+    {
+
+//        newUser.getUseremails().add(new Useremail(newUser, "newTest99@lambdaschool.local"));
+//
+//        User updateUser = userService.update(newUser, 11);
+//        assertEquals("number 9999 test user", updateUser.getUsername());
+
+        List<UserRoles> thisRole = new ArrayList<>();
+        thisRole.add(new UserRoles());
+        thisRole.get(0).setRole(new Role());
+        thisRole.get(0).getRole().setRoleid(2);
+        thisRole.get(0).setUser(new User());
         User newUser = new User("Number 9999 Test User", "pass", "test@lambdaschool.local", thisRole);
+
         newUser.getUseremails().add(new Useremail(newUser, "newTest99@lambdaschool.local"));
 
-        User updateUser = userService.update(newUser, 11);
+        User updateUser = userService.update(newUser, 13);
         assertEquals("number 9999 test user", updateUser.getUsername());
     }
 
