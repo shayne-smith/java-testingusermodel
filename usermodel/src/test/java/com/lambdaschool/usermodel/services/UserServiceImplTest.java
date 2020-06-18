@@ -14,6 +14,7 @@ import org.junit.runners.MethodSorters;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityNotFoundException;
@@ -55,9 +56,9 @@ public class UserServiceImplTest
     }
 
     @Test
-    public void cfindByNameContaining()
+    public void cfindByNameContaining(Pageable pageable)
     {
-        assertEquals(1, userService.findByNameContaining("cinn").size());
+        assertEquals(1, userService.findByNameContaining("cinn", pageable).size());
     }
 
     @Test

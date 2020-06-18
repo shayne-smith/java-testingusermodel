@@ -3,6 +3,7 @@ package com.lambdaschool.usermodel.controllers;
 import com.lambdaschool.usermodel.models.User;
 import com.lambdaschool.usermodel.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -87,15 +88,15 @@ public class UserController
      *
      * @param userName Substring of the username for which you seek
      * @return A JSON list of users you seek
-     * @see UserService#findByNameContaining(String) UserService.findByNameContaining(String)
+     * @see UserService#findByNameContaining(String, Pageable) UserService.findByNameContaining(String)
      */
     @GetMapping(value = "/user/name/like/{userName}",
         produces = {"application/json"})
     public ResponseEntity<?> getUserLikeName(
         @PathVariable
-            String userName)
+            String userName, Pageable pageable)
     {
-        List<User> u = userService.findByNameContaining(userName);
+        List<User> u = userService.findByNameContaining(userName, pageable);
         return new ResponseEntity<>(u,
             HttpStatus.OK);
     }
