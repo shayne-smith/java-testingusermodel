@@ -32,6 +32,8 @@ public class UserServiceImplTest
     @Autowired
     private UserService userService;
 
+    private Pageable pageable;
+
     @Before
     public void setUp() throws Exception
     {
@@ -56,7 +58,7 @@ public class UserServiceImplTest
     }
 
     @Test
-    public void cfindByNameContaining(Pageable pageable)
+    public void cfindByNameContaining()
     {
         assertEquals(1, userService.findByNameContaining("cinn", pageable).size());
     }
@@ -94,7 +96,7 @@ public class UserServiceImplTest
     }
 
     @Test
-    public void gsave()
+    public void gasave()
     {
         List<UserRoles> thisRole = new ArrayList<>();
         User newUser = new User("Number 1 Test User", "pass", "test@lambdaschool.local", thisRole);
@@ -107,14 +109,14 @@ public class UserServiceImplTest
     }
 
     @Test
-    public void gasaveasput()
+    public void gsaveasput()
     {
         List<UserRoles> thisRole = new ArrayList<>();
         thisRole.add(new UserRoles());
         thisRole.get(0).setRole(new Role());
         thisRole.get(0).getRole().setRoleid(2);
         thisRole.get(0).setUser(new User());
-        User newUser = new User("Number 12 Test User", "pass", "test@lambdaschool.local", thisRole);
+        User newUser = new User("Number 12 Test User", "pass", "test2@lambdaschool.local", thisRole);
 
         newUser.setUserid(4);
         newUser.getUseremails()
@@ -140,7 +142,7 @@ public class UserServiceImplTest
         thisRole.get(0).setRole(new Role());
         thisRole.get(0).getRole().setRoleid(2);
         thisRole.get(0).setUser(new User());
-        User newUser = new User("Number 9999 Test User", "pass", "test@lambdaschool.local", thisRole);
+        User newUser = new User("Number 9999 Test User", "pass", "test3@lambdaschool.local", thisRole);
 
         newUser.getUseremails().add(new Useremail(newUser, "newTest99@lambdaschool.local"));
 
