@@ -2,6 +2,7 @@ package com.lambdaschool.usermodel.services;
 
 import com.lambdaschool.usermodel.models.User;
 import com.lambdaschool.usermodel.views.UserNameCountEmails;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public interface UserService
      * @param username The substring (String) of the username of the Users you seek
      * @return List of users whose username contains the given substring
      */
-    List<User> findByNameContaining(String username);
+    List<User> findByNameContaining(String username, Pageable pageable);
 
     /**
      * Returns the user with the given primary key.
